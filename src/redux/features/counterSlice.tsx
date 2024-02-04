@@ -1,6 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
+type TCounter = {
+  count: number;
+};
+const initialState: TCounter = {
   count: 0,
 };
 
@@ -8,15 +11,18 @@ const counterSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
-    increment: (state, action) => {
+    incrementByFive: (state, action: PayloadAction<{ value: number }>) => {
+      state.count = state.count + action.payload.value;
+    },
+    increment: (state) => {
       state.count = state.count + 1;
     },
-    decrement: (state, action) => {
+    decrement: (state) => {
       state.count = state.count - 1;
     },
   },
 });
 
-export const { increment, decrement } = counterSlice.actions;
+export const { increment, decrement, incrementByFive } = counterSlice.actions;
 
 export default counterSlice.reducer;
